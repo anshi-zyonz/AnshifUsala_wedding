@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Anshif & Usala - Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="56x56" href="assets/images/fav-icon/icon.png" />
+  <!-- bootstrap CSS -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" media="all" />
+  <!-- font-awesome CSS -->
+  <link rel="stylesheet" href="assets/css/all.min.css" type="text/css" media="all" />
+  <!-- theme-default CSS -->
+  <link rel="stylesheet" href="assets/css/theme-default.css" type="text/css" media="all" />
+  <!-- Main Style CSS -->
+  <link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all" />
+  
+  <style>
+    /* Hub specific styles */
+    body {
+      background-color: #f9f9f9;
+    }
+    
+    .hub-hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: url('assets/images/slider/slider-1-bg.jpg') center/cover no-repeat;
+      overflow: hidden;
+    }
+    
+    .hub-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hub-hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hub-title {
+      font-family: 'Italianno', cursive;
+      font-size: 120px;
+      color: #fff;
+      margin-bottom: 20px;
+      animation: fadeInDown 1.5s ease;
+    }
+
+    .hub-subtitle {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 24px;
+      color: #cda873;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-size: 30px;
+      animation: bounce 2s infinite;
+      z-index: 2;
+    }
+
+    /* Hub Portals */
+    .hub-portals {
+      padding: 100px 0;
+      background-color: #f4f0ed;
+    }
+    
+    .portal-card {
+      position: relative;
+      height: 450px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      display: block;
+      transition: all 0.4s ease;
+    }
+
+    .portal-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+
+    .portal-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.8s ease;
+    }
+    
+    .portal-card:hover .portal-bg {
+      transform: scale(1.1);
+    }
+
+    .portal-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
+      transition: background 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px 30px;
+    }
+    
+    .portal-card:hover .portal-overlay {
+      background: linear-gradient(to top, rgba(0,92,99,0.9), rgba(0,0,0,0.3));
+    }
+
+    .portal-title {
+      font-family: 'Italianno', cursive;
+      font-size: 50px;
+      color: #fff;
+      margin: 0;
+      transition: color 0.3s;
+    }
+
+    .portal-action {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 14px;
+      color: #cda873;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 10px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s ease;
+    }
+
+    .portal-card:hover .portal-action {
+      opacity: 1;
+      transform: translateY(0);
+      color: #fff;
+    }
+
+    .invitation-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 40px;
+      background: #fff;
+      color: #232323;
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 50px;
+      font-family: 'Josefin Sans', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.4s ease;
+      text-decoration: none;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .invitation-btn:hover {
+      background: #232323;
+      color: #cda873;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .invitation-btn i {
+      font-size: 16px;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+      40% { transform: translateY(-20px) translateX(-50%); }
+      60% { transform: translateY(-10px) translateX(-50%); }
+    }
+  </style>
+</head>
+
+<body>
+  
+  <section class="hub-hero">
+    <div class="hub-hero-content">
+      <div class="hub-subtitle">Welcome to Our Wedding Hub</div>
+      <h1 class="hub-title">Anshif & Usala</h1>
+    </div>
+    <a href="#portals" class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></a>
+  </section>
+
+  <section id="portals" class="hub-portals">
+    <div class="container">
+      <div class="row text-center mb-5">
+        <div class="col-12">
+          <h2 style="font-family: 'Italianno'; font-size: 60px; color: #232323;">Explore Our Journey</h2>
+          <p style="color: #6e706c; max-width: 600px; margin: 0 auto;">Select a portal below to view our stories, galleries, and the wedding invitation.</p>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <!-- Engagement Stories -->
+        <div class="col-lg-5 col-md-6">
+          <a href="https://seventhframe.pixieset.com/anshifusala-engagement/" target="_blank" class="portal-card">
+            <!-- Replace with engagement image -->
+            <div class="portal-bg" style="background-image: url('assets/images/slider/slider-2-bg.jpg');"></div>
+            <div class="portal-overlay">
+              <h3 class="portal-title">Engagement</h3>
+              <div class="portal-action">View Gallery <i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+          </a>
+        </div>
+        
+        <!-- Wedding Stories -->
+        <div class="col-lg-5 col-md-6">
+          <a href="https://anshishalu.pixieset.com/anshifusalawedding/" target="_blank" class="portal-card">
+            <!-- Replace with wedding image -->
+            <div class="portal-bg" style="background-image: url('assets/images/slider/slider-1-bg.jpg');"></div>
+            <div class="portal-overlay">
+              <h3 class="portal-title">Wedding</h3>
+              <div class="portal-action">View Gallery <i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+          </a>
+        </div>
+      </div>
+      
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+          <a href="invitation.html" class="invitation-btn">
+            <i class="fa-solid fa-envelope-open-text"></i>
+            <span>View The Invitation</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-area" style="background: #050a1e;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center footer-copyright-col" style="padding: 30px 0; z-index: 10; position: relative;">
+          <p class="footer-copyright-text"
+            style="margin: 0; font-size: 15px; font-weight: 500; font-family: 'Josefin Sans', sans-serif; letter-spacing: 1px; color: #fff;">
+            ©seventhframephotography 2026 - anshif & usala</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/vendor/jquery-3.6.2.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

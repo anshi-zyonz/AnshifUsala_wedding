@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anshif & Usala - Gallery</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="56x56" href="assets/images/fav-icon/icon.png" />
+  <!-- bootstrap CSS -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" media="all" />
+  <!-- font-awesome CSS -->
+  <link rel="stylesheet" href="assets/css/all.min.css" type="text/css" media="all" />
+  <!-- theme-default CSS -->
+  <link rel="stylesheet" href="assets/css/theme-default.css" type="text/css" media="all" />
+
+  <style>
+    body {
+      background-color: #fbfbfb;
+      font-family: 'Josefin Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    .gallery-header {
+      padding: 40px 20px;
+      text-align: center;
+      background: #fff;
+    }
+    
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #005c63;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .back-btn:hover { color: #232323; }
+    .back-btn i { margin-right: 8px; }
+
+    .gallery-names {
+      font-family: 'Italianno', cursive;
+      font-size: 50px;
+      color: #232323;
+      margin: 0;
+      line-height: 1;
+    }
+    
+    .gallery-subtitle {
+      color: #cda873;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    /* Filters */
+    .gallery-filters {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      padding: 20px 0;
+      border-bottom: 1px solid #eaeaea;
+      text-align: center;
+    }
+
+    .filter-btn {
+      background: none;
+      border: none;
+      padding: 8px 16px;
+      margin: 0 5px;
+      font-size: 15px;
+      color: #6e706c;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .filter-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: #005c63;
+      transition: width 0.3s;
+    }
+
+    .filter-btn:hover { color: #232323; }
+    .filter-btn.active { color: #005c63; font-weight: 600; }
+    .filter-btn.active::after { width: 100%; }
+
+    /* Masonry Grid */
+    .masonry-wrapper {
+      padding: 40px 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .masonry-grid {
+      column-count: 3;
+      column-gap: 20px;
+    }
+
+    @media (max-width: 991px) { .masonry-grid { column-count: 2; } }
+    @media (max-width: 575px) { .masonry-grid { column-count: 1; } }
+
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 20px;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    
+    .masonry-item.hidden {
+      display: none;
+    }
+
+    .masonry-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.8s ease;
+    }
+
+    .masonry-item-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+
+    .masonry-item:hover img { transform: scale(1.05); }
+    .masonry-item:hover .masonry-item-overlay { opacity: 1; }
+
+    .view-icon {
+      color: #fff;
+      font-size: 24px;
+      width: 50px;
+      height: 50px;
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: scale(0.8);
+      transition: transform 0.4s ease;
+    }
+    
+    .masonry-item:hover .view-icon { transform: scale(1); }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s;
+    }
+
+    .lightbox.active { opacity: 1; visibility: visible; }
+
+    .lightbox-img-wrapper {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    
+    .lightbox-img.loaded {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px; right: 30px;
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+      z-index: 10;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    .lightbox-close:hover { opacity: 1; }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+      width: 50px; height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      transition: background 0.3s, opacity 0.3s;
+      z-index: 10;
+    }
+    
+    .lightbox-nav:hover { background: rgba(255,255,255,0.3); }
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+    
+    .lightbox-counter {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-size: 14px;
+      letter-spacing: 2px;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 767px) {
+      .lightbox-nav { display: none; } /* Rely on swipe for mobile */
+      .gallery-filters { overflow-x: auto; white-space: nowrap; padding: 15px 10px; }
+      .filter-btn { padding: 6px 12px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="gallery-header">
+    <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Hub</a>
+    <h1 class="gallery-names">Anshif & Usala</h1>
+    <div class="gallery-subtitle">Our Moments</div>
+  </header>
+
+  <!-- Filters -->
+  <div class="gallery-filters" id="gallery-filters">
+    <button class="filter-btn active" data-filter="all">All Photos</button>
+    <button class="filter-btn" data-filter="engagement">Engagement</button>
+    <button class="filter-btn" data-filter="wedding">Wedding</button>
+    <button class="filter-btn" data-filter="friends">Family & Friends</button>
+  </div>
+
+  <!-- Masonry Grid -->
+  <div class="masonry-wrapper">
+    <div class="masonry-grid" id="masonry-grid">
+      <!-- Photos will be dynamically inserted here via JS -->
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-close" id="lightbox-close"><i class="fa-solid fa-xmark"></i></div>
+    <div class="lightbox-nav lightbox-prev" id="lightbox-prev"><i class="fa-solid fa-chevron-left"></i></div>
+    <div class="lightbox-nav lightbox-next" id="lightbox-next"><i class="fa-solid fa-chevron-right"></i></div>
+    
+    <div class="lightbox-img-wrapper">
+      <img src="" alt="Gallery Image" class="lightbox-img" id="lightbox-img">
+    </div>
+    
+    <div class="lightbox-counter" id="lightbox-counter">1 / 10</div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Sample Data - using Unsplash placeholders with varying heights to demonstrate masonry
+      const galleryData = [
+        { id: 1, category: "engagement", src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" },
+        { id: 2, category: "wedding", src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" },
+        { id: 3, category: "friends", src: "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=800&q=80" },
+        { id: 4, category: "engagement", src: "https://images.unsplash.com/photo-1583939000140-69e160f08960?auto=format&fit=crop&w=800&q=80" },
+        { id: 5, category: "wedding", src: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=800&q=80" },
+        { id: 6, category: "wedding", src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80" },
+        { id: 7, category: "friends", src: "https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=800&q=80" },
+        { id: 8, category: "engagement", src: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80" },
+        { id: 9, category: "wedding", src: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80" }
+      ];
+
+      const grid = document.getElementById('masonry-grid');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      
+      // Lightbox Elements
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const closeBtn = document.getElementById('lightbox-close');
+      const prevBtn = document.getElementById('lightbox-prev');
+      const nextBtn = document.getElementById('lightbox-next');
+      const counter = document.getElementById('lightbox-counter');
+      
+      let currentFilter = 'all';
+      let currentItems = [];
+      let currentIndex = 0;
+
+      // Render Grid
+      function renderGrid() {
+        grid.innerHTML = '';
+        galleryData.forEach((item, index) => {
+          const div = document.createElement('div');
+          div.className = `masonry-item ${item.category}`;
+          div.dataset.index = index;
+          div.innerHTML = `
+            <img src="${item.src}" alt="Gallery Image" loading="lazy">
+            <div class="masonry-item-overlay">
+              <div class="view-icon"><i class="fa-solid fa-expand"></i></div>
+            </div>
+          `;
+          
+          div.addEventListener('click', () => openLightbox(item, index));
+          grid.appendChild(div);
+        });
+        applyFilter('all');
+      }
+
+      // Filtering Logic
+      function applyFilter(filter) {
+        currentFilter = filter;
+        const items = document.querySelectorAll('.masonry-item');
+        currentItems = [];
+        
+        items.forEach((item, idx) => {
+          if (filter === 'all' || item.classList.contains(filter)) {
+            item.classList.remove('hidden');
+            // Keep track of visible items for lightbox navigation
+            currentItems.push({
+              el: item,
+              data: galleryData[idx],
+              originalIndex: idx
+            });
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          // Update active state
+          filterBtns.forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          
+          const filter = e.target.getAttribute('data-filter');
+          applyFilter(filter);
+        });
+      });
+
+      // Lightbox Logic
+      function openLightbox(itemData, originalIndex) {
+        // Find index in currentItems array
+        currentIndex = currentItems.findIndex(i => i.originalIndex === originalIndex);
+        updateLightboxImage();
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          lightboxImg.src = '';
+          lightboxImg.classList.remove('loaded');
+        }, 400);
+      }
+
+      function updateLightboxImage() {
+        const item = currentItems[currentIndex].data;
+        lightboxImg.classList.remove('loaded');
+        
+        // Wait for transition before changing src
+        setTimeout(() => {
+          lightboxImg.src = item.src;
+          lightboxImg.onload = () => {
+            lightboxImg.classList.add('loaded');
+          };
+          counter.textContent = `${currentIndex + 1} / ${currentItems.length}`;
+        }, 150);
+      }
+
+      function nextImage() {
+        currentIndex = (currentIndex + 1) % currentItems.length;
+        updateLightboxImage();
+      }
+
+      function prevImage() {
+        currentIndex = (currentIndex - 1 + currentItems.length) % currentItems.length;
+        updateLightboxImage();
+      }
+
+      // Event Listeners for Lightbox
+      closeBtn.addEventListener('click', closeLightbox);
+      nextBtn.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
+      prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+      
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target.classList.contains('lightbox-img-wrapper')) {
+          closeLightbox();
+        }
+      });
+
+      // Keyboard Navigation
+      document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'ArrowLeft') prevImage();
+      });
+
+      // Touch Swipe Support
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      lightbox.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, {passive: true});
+      
+      lightbox.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, {passive: true});
+      
+      function handleSwipe() {
+        const swipeThreshold = 50;
+        if (touchEndX < touchStartX - swipeThreshold) nextImage();
+        if (touchEndX > touchStartX + swipeThreshold) prevImage();
+      }
+
+      // Initialize
+      renderGrid();
+    });
+  </script>
+</body>
+</html>
