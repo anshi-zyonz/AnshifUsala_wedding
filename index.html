@@ -12,18 +12,18 @@
   <!-- bootstrap CSS -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" media="all" />
   <!-- font-awesome CSS -->
-  <link rel="stylesheet" href="assets/css/all.min.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" type="text/css" media="all" />
   <!-- theme-default CSS -->
   <link rel="stylesheet" href="assets/css/theme-default.css" type="text/css" media="all" />
   <!-- Main Style CSS -->
   <link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all" />
-  
+
   <style>
     /* Hub specific styles */
     body {
       background-color: #f9f9f9;
     }
-    
+
     .hub-hero {
       position: relative;
       height: 100vh;
@@ -34,11 +34,14 @@
       background: url('assets/images/slider/slider-1-bg.jpg') center/cover no-repeat;
       overflow: hidden;
     }
-    
+
     .hub-hero::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: rgba(0, 0, 0, 0.4);
     }
 
@@ -72,7 +75,7 @@
       color: #fff;
       font-size: 30px;
       animation: bounce 2s infinite;
-      z-index: 2;
+      z-index: 10;
     }
 
     /* Hub Portals */
@@ -80,48 +83,54 @@
       padding: 100px 0;
       background-color: #f4f0ed;
     }
-    
+
     .portal-card {
       position: relative;
       height: 450px;
       border-radius: 12px;
       overflow: hidden;
       margin-bottom: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       display: block;
       transition: all 0.4s ease;
     }
 
     .portal-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     }
 
     .portal-bg {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background-size: cover;
       background-position: center;
       transition: transform 0.8s ease;
     }
-    
+
     .portal-card:hover .portal-bg {
       transform: scale(1.1);
     }
 
     .portal-overlay {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
       transition: background 0.4s ease;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       padding: 40px 30px;
     }
-    
+
     .portal-card:hover .portal-overlay {
-      background: linear-gradient(to top, rgba(0,92,99,0.9), rgba(0,0,0,0.3));
+      background: linear-gradient(to top, rgba(0, 92, 99, 0.9), rgba(0, 0, 0, 0.3));
     }
 
     .portal-title {
@@ -157,7 +166,7 @@
       padding: 14px 40px;
       background: #fff;
       color: #232323;
-      border: 1px solid rgba(0,0,0,0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
       border-radius: 50px;
       font-family: 'Josefin Sans', sans-serif;
       text-transform: uppercase;
@@ -166,33 +175,56 @@
       font-weight: 600;
       transition: all 0.4s ease;
       text-decoration: none;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     }
 
     .invitation-btn:hover {
       background: #232323;
       color: #cda873;
       transform: translateY(-3px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
-    
+
     .invitation-btn i {
       font-size: 16px;
     }
-    
+
     @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-      40% { transform: translateY(-20px) translateX(-50%); }
-      60% { transform: translateY(-10px) translateX(-50%); }
+
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translateY(0) translateX(-50%);
+      }
+
+      40% {
+        transform: translateY(-20px) translateX(-50%);
+      }
+
+      60% {
+        transform: translateY(-10px) translateX(-50%);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hub-subtitle {
+        font-size: 16px;
+        letter-spacing: 1px;
+      }
+      .hub-title {
+        font-size: 80px;
+      }
     }
   </style>
 </head>
 
 <body>
-  
+
   <section class="hub-hero">
     <div class="hub-hero-content">
-      <div class="hub-subtitle">Welcome to Our Wedding Hub</div>
+      <div class="hub-subtitle">Welcome to Our Wedding Gallery</div>
       <h1 class="hub-title">Anshif & Usala</h1>
     </div>
     <a href="#portals" class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></a>
@@ -203,12 +235,13 @@
       <div class="row text-center mb-5">
         <div class="col-12">
           <h2 style="font-family: 'Italianno'; font-size: 60px; color: #232323;">Explore Our Journey</h2>
-          <p style="color: #6e706c; max-width: 600px; margin: 0 auto;">Select a portal below to view our stories, galleries, and the wedding invitation.</p>
+          <p style="color: #6e706c; max-width: 600px; margin: 0 auto;">Select a portal below to view our stories,
+            galleries, and the wedding invitation.</p>
         </div>
       </div>
       <div class="row justify-content-center">
         <!-- Engagement Stories -->
-        <div class="col-lg-5 col-md-6">
+        <div class="col-lg-4 col-md-6">
           <a href="https://seventhframe.pixieset.com/anshifusala-engagement/" target="_blank" class="portal-card">
             <!-- Replace with engagement image -->
             <div class="portal-bg" style="background-image: url('assets/images/slider/slider-2-bg.jpg');"></div>
@@ -218,20 +251,32 @@
             </div>
           </a>
         </div>
-        
-        <!-- Wedding Stories -->
-        <div class="col-lg-5 col-md-6">
+
+        <!-- Mylanchi Stories -->
+        <div class="col-lg-4 col-md-6">
           <a href="https://anshishalu.pixieset.com/anshifusalawedding/" target="_blank" class="portal-card">
-            <!-- Replace with wedding image -->
-            <div class="portal-bg" style="background-image: url('assets/images/slider/slider-1-bg.jpg');"></div>
+            <!-- Replace with mylanchi image -->
+            <div class="portal-bg" style="background-image: url('assets/images/slider/slider-3-bg.jpg');"></div>
             <div class="portal-overlay">
-              <h3 class="portal-title">Wedding</h3>
+              <h3 class="portal-title">Mylanchi</h3>
+              <div class="portal-action">View Gallery <i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Wedding Stories -->
+        <div class="col-lg-4 col-md-6">
+          <a href="https://seventhframe54.pixieset.com/anshifusalawedding/" target="_blank" class="portal-card">
+            <!-- Replace with wedding image -->
+            <div class="portal-bg" style="background-image: url('assets/images/slider/slider-4-bg.jpg');"></div>
+            <div class="portal-overlay">
+              <h3 class="portal-title">Nikkah</h3>
               <div class="portal-action">View Gallery <i class="fa-solid fa-arrow-right"></i></div>
             </div>
           </a>
         </div>
       </div>
-      
+
       <div class="row mt-5">
         <div class="col-12 text-center">
           <a href="invitation.html" class="invitation-btn">
